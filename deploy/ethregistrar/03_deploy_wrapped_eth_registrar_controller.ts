@@ -98,23 +98,23 @@ export default deployScript(
 
     const resolver = await read(registry, {
       functionName: 'resolver',
-      args: [namehash('eth')],
+      args: [namehash('noble')],
     })
     if (resolver === zeroAddress) {
       console.warn(
-        `  - WARN: No resolver set for .eth; not setting interface ${interfaceId} for WrappedETHRegistrarController`,
+        `  - WARN: No resolver set for .noble; not setting interface ${interfaceId} for WrappedETHRegistrarController`,
       )
       return
     }
 
     console.log(
-      `  - Setting WrappedETHRegistrarController interface ID ${interfaceId} on .eth resolver`,
+      `  - Setting WrappedETHRegistrarController interface ID ${interfaceId} on .noble resolver`,
     )
     await write(
       { ...artifacts.OwnedResolver, address: resolver },
       {
         functionName: 'setInterface',
-        args: [namehash('eth'), interfaceId, controller.address],
+        args: [namehash('noble'), interfaceId, controller.address],
         account: owner,
       },
     )

@@ -40,6 +40,12 @@ const config = {
       chainId: 31337,
       url: 'http://127.0.0.1:8545/',
     },
+    noble: {
+      type: 'http',
+      chainId: 31337,
+      url: 'http://127.0.0.1:8545/',
+      accounts: realAccounts,
+    },
     sepolia: {
       type: 'http',
       url: `https://sepolia.infura.io/v3/${process.env.INFURA_API_KEY}`,

@@ -22,6 +22,10 @@ export const config = {
       rpcUrl: 'http://127.0.0.1:8545',
       tags: ['test', 'legacy', 'use_root', 'allow_unsafe'],
     },
+    noble: {
+      rpcUrl: 'http://127.0.0.1:8545',
+      tags: ['use_root'], 
+    },
     sepolia: {
       rpcUrl: `https://sepolia.infura.io/v3/${process.env.INFURA_API_KEY}`,
       tags: ['test', 'legacy', 'use_root'],
