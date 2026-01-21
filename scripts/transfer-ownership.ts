@@ -4,13 +4,14 @@ import { hardhat } from 'viem/chains'
 import fs from 'fs'
 import path from 'path'
 import dotenv from 'dotenv'
+import { noble } from '../config/chains.js'
 
 dotenv.config()
 
 const DEPLOYER_KEY = process.env.DEPLOYER_KEY as `0x${string}`
 const OWNER_KEY = process.env.OWNER_KEY as `0x${string}`
 const FINAL_OWNER_ADDRESS = process.env.FINAL_OWNER_ADDRESS as Address
-const RPC_URL = process.env.RPC_URL || 'http://127.0.0.1:8545'
+const RPC_URL = process.env.RPC_URL
 const DEPLOYMENTS_DIR = process.env.DEPLOYMENTS_DIR || './deployments/noble'
 
 if (!DEPLOYER_KEY) throw new Error('DEPLOYER_KEY not set in .env')
@@ -46,19 +47,19 @@ async function main() {
   const ownerAccount = privateKeyToAccount(OWNER_KEY)
 
   const publicClient = createPublicClient({
-    chain: hardhat,
+    chain: noble,
     transport: http(RPC_URL),
   })
 
   const deployerWallet = createWalletClient({
     account: deployerAccount,
-    chain: hardhat,
+    chain: noble,
     transport: http(RPC_URL),
   })
 
   const ownerWallet = createWalletClient({
     account: ownerAccount,
-    chain: hardhat,
+    chain: noble,
     transport: http(RPC_URL),
   })
 

@@ -17,7 +17,8 @@
     "format": "prettier --write .",
     "prepublishOnly": "bun run build",
     "pub": "npm publish --access public",
-    "wiki": "bun ./scripts/wiki.ts"
+    "wiki": "bun ./scripts/wiki.ts",
+    "postinstall": "bun scripts/patch-viem-chains.ts"
   },
   "files": [
     "build",

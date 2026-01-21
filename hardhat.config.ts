@@ -42,8 +42,8 @@ const config = {
     },
     noble: {
       type: 'http',
-      chainId: 31337,
-      url: 'http://127.0.0.1:8545/',
+      chainId: 662532,
+      url: 'https://rpc.devnet.noble.xyz/',
       accounts: realAccounts,
     },
     sepolia: {

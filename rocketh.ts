@@ -23,7 +23,7 @@ export const config = {
       tags: ['test', 'legacy', 'use_root', 'allow_unsafe'],
     },
     noble: {
-      rpcUrl: 'http://127.0.0.1:8545',
+      rpcUrl: 'https://rpc.devnet.noble.xyz/',
       tags: ['use_root'], 
     },
     sepolia: {
