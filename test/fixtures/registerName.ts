@@ -13,12 +13,12 @@ type RegisterNameOptions = {
   secret?: Hex
   resolverAddress?: Address
   data?: Hex[]
-  reverseRecord?: ('ethereum' | 'default')[]
+  reverseRecord?: ('noble' | 'default')[]
   referrer?: Hex
 }
 
 const ReverseRecord = {
-  ethereum: 1,
+  noble: 1,
   default: 2,
 }
 

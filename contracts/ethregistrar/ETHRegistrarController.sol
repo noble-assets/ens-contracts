@@ -24,7 +24,7 @@ contract ETHRegistrarController is
     using StringUtils for *;
 
     /// @notice The bitmask for the Ethereum reverse record.
-    uint8 constant REVERSE_RECORD_ETHEREUM_BIT = 1;
+    uint8 constant REVERSE_RECORD_CHAIN_BIT = 1;
 
     /// @notice The bitmask for the default reverse record.
     uint8 constant REVERSE_RECORD_DEFAULT_BIT = 2;
@@ -32,9 +32,9 @@ contract ETHRegistrarController is
     /// @notice The minimum duration for a registration.
     uint256 public constant MIN_REGISTRATION_DURATION = 28 days;
 
-    // @notice The node (i.e. namehash) for the eth TLD.
-    bytes32 private constant ETH_NODE =
-        0x93cdeb708b7545dc668eb9280176169d1c33cfd8ed6f04690a0bcc88a93fc4ae;
+    // @notice The node (i.e. namehash) for the noble TLD.
+    bytes32 private constant NOBLE_NODE =
+        0x6a3a6e0396dfca0f620a22586315930a7419564d1fb15a35096a66a603afe621;
 
     /// @notice The maximum expiry time for a registration.
     uint64 private constant MAX_EXPIRY = type(uint64).max;
@@ -42,7 +42,7 @@ contract ETHRegistrarController is
     /// @notice The ENS registry.
     ENS public immutable ens;
 
-    // @notice The base registrar implementation for the eth TLD.
+    // @notice The base registrar implementation for the noble TLD.
     BaseRegistrarImplementation immutable base;
 
     /// @notice The minimum time a commitment must exist to be valid.
@@ -57,7 +57,7 @@ contract ETHRegistrarController is
     /// @notice The registrar for default.reverse. (i.e. fallback reverse for all EVM chains)
     IDefaultReverseRegistrar public immutable defaultReverseRegistrar;
 
-    /// @notice The price oracle for the eth TLD.
+    /// @notice The price oracle for the noble TLD.
     IPriceOracle public immutable prices;
 
     /// @notice A mapping of commitments to their timestamp.
@@ -140,8 +140,8 @@ contract ETHRegistrarController is
 
     /// @notice Constructor for the ETHRegistrarController.
     ///
-    /// @param _base The base registrar implementation for the eth TLD.
-    /// @param _prices The price oracle for the eth TLD.
+    /// @param _base The base registrar implementation for the noble TLD.
+    /// @param _prices The price oracle for the noble TLD.
     /// @param _minCommitmentAge The minimum time a commitment must exist to be valid.
     /// @param _maxCommitmentAge The maximum time a commitment can exist to be valid.
     /// @param _reverseRegistrar The registrar for addr.reverse.
@@ -297,7 +297,7 @@ contract ETHRegistrarController is
                 registration.duration
             );
 
-            bytes32 namehash = keccak256(abi.encodePacked(ETH_NODE, labelhash));
+            bytes32 namehash = keccak256(abi.encodePacked(NOBLE_NODE, labelhash));
             ens.setRecord(
                 namehash,
                 registration.owner,
@@ -316,17 +316,17 @@ contract ETHRegistrarController is
                 uint256(labelhash)
             );
 
-            if (registration.reverseRecord & REVERSE_RECORD_ETHEREUM_BIT != 0)
+            if (registration.reverseRecord & REVERSE_RECORD_CHAIN_BIT != 0)
                 reverseRegistrar.setNameForAddr(
                     msg.sender,
                     msg.sender,
                     registration.resolver,
-                    string.concat(registration.label, ".eth")
+                    string.concat(registration.label, ".noble")
                 );
             if (registration.reverseRecord & REVERSE_RECORD_DEFAULT_BIT != 0)
                 defaultReverseRegistrar.setNameForAddr(
                     msg.sender,
-                    string.concat(registration.label, ".eth")
+                    string.concat(registration.label, ".noble")
                 );
         }
 
