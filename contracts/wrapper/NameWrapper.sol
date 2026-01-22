@@ -339,7 +339,7 @@ contract NameWrapper is
         return registrarExpiry;
     }
 
-    /// @notice Wraps a non .eth domain, of any kind. Could be a DNSSEC name vitalik.xyz or a subdomain
+    /// @notice Wraps a non .noble domain, of any kind. Could be a DNSSEC name vitalik.xyz or a subdomain
     /// @dev Can be called by the owner in the registry or an authorised caller in the registry
     /// @param name The name to wrap, in DNS format
     /// @param wrappedOwner Owner of the name in this contract
