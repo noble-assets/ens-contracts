@@ -20,7 +20,7 @@ export const extendExpiryTests = (
 ) => {
   describe('extendExpiry()', () => {
     const label = 'fuses'
-    const name = `${label}.eth`
+    const name = `${label}.noble`
     const sublabel = 'sub'
     const subname = `${sublabel}.${name}`
 
@@ -456,7 +456,7 @@ export const extendExpiryTests = (
         .withArgs([namehash(subname), getAddress(accounts[2].address)])
     })
 
-    it('Does not allow owner of .eth 2LD to set expiry', async () => {
+    it('Does not allow owner of .noble 2LD to set expiry', async () => {
       const { nameWrapper, actions } = await loadFixture()
 
       await actions.registerSetupAndWrapName({
@@ -474,7 +474,7 @@ export const extendExpiryTests = (
 
       await expect(
         nameWrapper.write.extendExpiry([
-          namehash('eth'),
+          namehash('noble'),
           labelhash(label),
           expiry,
         ]),
@@ -696,7 +696,7 @@ export const extendExpiryTests = (
       expect(newExpiry).toEqual(parentExpiry - 1800n)
     })
 
-    it('Does not allow .eth 2LD owner to set expiry on child if the .eth 2LD is expired but grace period has not ended', async () => {
+    it('Does not allow .noble 2LD owner to set expiry on child if the .noble 2LD is expired but grace period has not ended', async () => {
       const { baseRegistrar, nameWrapper, testClient, actions, accounts } =
         await loadFixture()
 
@@ -738,7 +738,7 @@ export const extendExpiryTests = (
         .withArgs([namehash(subname), getAddress(accounts[0].address)])
     })
 
-    it('Allows child owner to set expiry if parent .eth 2LD is expired but grace period has not ended', async () => {
+    it('Allows child owner to set expiry if parent .noble 2LD is expired but grace period has not ended', async () => {
       const { baseRegistrar, nameWrapper, testClient, actions, accounts } =
         await loadFixture()
 

@@ -17,7 +17,7 @@ import {
 export const setChildFusesTests = (loadFixture: LoadNameWrapperFixture) => {
   describe('setChildFuses()', () => {
     const label = 'fuses'
-    const name = `${label}.eth`
+    const name = `${label}.noble`
     const sublabel = 'sub'
     const subname = `${sublabel}.${name}`
 
@@ -447,7 +447,7 @@ export const setChildFusesTests = (loadFixture: LoadNameWrapperFixture) => {
         .withArgs([namehash(subname)])
     })
 
-    it('should not allow .eth to call setChildFuses()', async () => {
+    it('should not allow .noble to call setChildFuses()', async () => {
       const { nameWrapper, actions, accounts } = await loadFixture()
 
       await actions.registerSetupAndWrapName({
@@ -457,14 +457,14 @@ export const setChildFusesTests = (loadFixture: LoadNameWrapperFixture) => {
 
       await expect(
         nameWrapper.write.setChildFuses([
-          namehash('eth'),
+          namehash('noble'),
           labelhash(label),
           CANNOT_SET_RESOLVER,
           0n,
         ]),
       )
         .toBeRevertedWithCustomError('Unauthorised')
-        .withArgs([namehash('eth'), getAddress(accounts[0].address)])
+        .withArgs([namehash('noble'), getAddress(accounts[0].address)])
     })
 
     it('Does not allow burning fuses if CANNOT_UNWRAP is not burnt', async () => {

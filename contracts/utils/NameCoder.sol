@@ -16,9 +16,9 @@ import {BytesUtils} from "./BytesUtils.sol";
 /// * `dns.length == 2 + ens.length` and the mapping is injective.
 ///
 library NameCoder {
-    /// @dev The namehash of "eth".
-    bytes32 public constant ETH_NODE =
-        0x93cdeb708b7545dc668eb9280176169d1c33cfd8ed6f04690a0bcc88a93fc4ae;
+    /// @dev The namehash of "noble".
+    bytes32 public constant NOBLE_NODE =
+        0x6a3a6e0396dfca0f620a22586315930a7419564d1fb15a35096a66a603afe621;
 
     /// @dev The label was empty.
     ///      Error selector: `0xbf9a2740`
@@ -359,14 +359,14 @@ library NameCoder {
         return abi.encodePacked(assertLabelSize(label), label, name);
     }
 
-    /// @dev Transform `label` to DNS-encoded `{label}.eth`.
-    ///      * `ethName("eth") = "\x04test\x03eth\x00"`
+    /// @dev Transform `label` to DNS-encoded `{label}.noble`.
+    ///      * `nobleName("noble") = "\x05noble\x00"`
     ///      Behaves like `addLabel()`.
     ///
     /// @param label The label to encode.
     ///
     /// @return The DNS-encoded name.
-    function ethName(string memory label) internal pure returns (bytes memory) {
-        return addLabel("\x03eth\x00", label);
+    function nobleName(string memory label) internal pure returns (bytes memory) {
+        return addLabel("\x05noble\x00", label);
     }
 }

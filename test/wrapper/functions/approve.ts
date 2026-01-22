@@ -21,7 +21,7 @@ export const approveTests = (
   describe('approve()', () => {
     const label = 'subdomain'
     const sublabel = 'sub'
-    const name = `${label}.eth`
+    const name = `${label}.noble`
     const subname = `${sublabel}.${name}`
 
     async function fixture() {
@@ -356,7 +356,7 @@ export const approveTests = (
         .withArgs([namehash(name), getAddress(accounts[1].address)])
     })
 
-    it('Approved address cannot unwrap .eth', async () => {
+    it('Approved address cannot unwrap .noble', async () => {
       const { nameWrapper, accounts } = await loadFixture()
 
       await nameWrapper.write.approve([accounts[1].address, toNameId(name)])
@@ -371,7 +371,7 @@ export const approveTests = (
         .withArgs([namehash(name), getAddress(accounts[1].address)])
     })
 
-    it('Approved address cannot unwrap non .eth', async () => {
+    it('Approved address cannot unwrap non .noble', async () => {
       const { nameWrapper, accounts, actions } = await loadFixture()
 
       await actions.setSubnodeOwner.onNameWrapper({

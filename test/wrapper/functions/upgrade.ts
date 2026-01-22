@@ -18,11 +18,11 @@ import {
 
 export const upgradeTests = (loadFixture: LoadNameWrapperFixture) =>
   describe('upgrade()', () => {
-    describe('.eth', () => {
+    describe('.noble', () => {
       const label = 'wrapped2'
-      const name = `${label}.eth`
+      const name = `${label}.noble`
 
-      it('Upgrades a .eth name if sender is owner', async () => {
+      it('Upgrades a .noble name if sender is owner', async () => {
         const {
           nameWrapper,
           baseRegistrar,
@@ -64,7 +64,7 @@ export const upgradeTests = (loadFixture: LoadNameWrapperFixture) =>
           })
       })
 
-      it('Upgrades a .eth name if sender is authorised by the owner', async () => {
+      it('Upgrades a .noble name if sender is authorised by the owner', async () => {
         const {
           nameWrapper,
           baseRegistrar,
@@ -312,7 +312,7 @@ export const upgradeTests = (loadFixture: LoadNameWrapperFixture) =>
     describe('other', () => {
       const label = 'to-upgrade'
       const parentLabel = 'wrapped2'
-      const parentName = `${parentLabel}.eth`
+      const parentName = `${parentLabel}.noble`
       const name = `${label}.${parentName}`
 
       it('Allows owner to upgrade name', async () => {

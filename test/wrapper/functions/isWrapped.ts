@@ -18,7 +18,7 @@ export const isWrappedTests = (
 ) => {
   describe('isWrapped(bytes32 node)', () => {
     const label = 'something'
-    const name = `${label}.eth`
+    const name = `${label}.noble`
 
     async function fixture() {
       const initial = await loadNameWrapperFixture()
@@ -38,7 +38,7 @@ export const isWrappedTests = (
     const loadFixture = async () =>
       connection.networkHelpers.loadFixture(fixture)
 
-    it('identifies a wrapped .eth name', async () => {
+    it('identifies a wrapped .noble name', async () => {
       const { nameWrapper } = await loadFixture()
 
       await expect(
@@ -46,7 +46,7 @@ export const isWrappedTests = (
       ).resolves.toBe(true)
     })
 
-    it('identifies an expired .eth name as unwrapped', async () => {
+    it('identifies an expired .noble name as unwrapped', async () => {
       const { nameWrapper, testClient } = await loadFixture()
 
       await testClient.increaseTime({ seconds: Number(1n * DAY + 1n) })
@@ -57,7 +57,7 @@ export const isWrappedTests = (
       ).resolves.toBe(false)
     })
 
-    it('identifies an eth name registered on old controller as unwrapped', async () => {
+    it('identifies an noble name registered on old controller as unwrapped', async () => {
       const { baseRegistrar, nameWrapper, accounts } =
         await loadNameWrapperFixture()
 
@@ -73,12 +73,12 @@ export const isWrappedTests = (
       ).resolves.toBe(false)
     })
 
-    it('identifies an unregistered .eth name as unwrapped', async () => {
+    it('identifies an unregistered .noble name as unwrapped', async () => {
       const { nameWrapper } = await loadFixture()
 
       await expect(
         nameWrapper.read.isWrapped([
-          namehash('abcdefghijklmnop.eth'),
+          namehash('abcdefghijklmnop.noble'),
         ]) as Promise<boolean>,
       ).resolves.toBe(false)
     })
@@ -139,7 +139,7 @@ export const isWrappedTests = (
 
   describe('isWrapped(bytes32 parentNode, bytes32 labelhash)', () => {
     const label = 'something'
-    const name = `${label}.eth`
+    const name = `${label}.noble`
     const sublabel = 'sub'
     const subname = `${sublabel}.${name}`
 
@@ -161,18 +161,18 @@ export const isWrappedTests = (
     const loadFixture = async () =>
       connection.networkHelpers.loadFixture(fixture)
 
-    it('identifies a wrapped .eth name', async () => {
+    it('identifies a wrapped .noble name', async () => {
       const { nameWrapper } = await loadFixture()
 
       await expect(
         nameWrapper.read.isWrapped([
-          namehash('eth'),
+          namehash('noble'),
           labelhash(label),
         ]) as Promise<boolean>,
       ).resolves.toBe(true)
     })
 
-    it('identifies an expired .eth name as unwrapped', async () => {
+    it('identifies an expired .noble name as unwrapped', async () => {
       const { nameWrapper, testClient } = await loadFixture()
 
       await testClient.increaseTime({ seconds: Number(1n * DAY + 1n) })
@@ -180,13 +180,13 @@ export const isWrappedTests = (
 
       await expect(
         nameWrapper.read.isWrapped([
-          namehash('eth'),
+          namehash('noble'),
           labelhash(label),
         ]) as Promise<boolean>,
       ).resolves.toBe(false)
     })
 
-    it('identifies an eth name registered on old controller as unwrapped', async () => {
+    it('identifies an noble name registered on old controller as unwrapped', async () => {
       const { baseRegistrar, nameWrapper, accounts } =
         await loadNameWrapperFixture()
 
@@ -199,18 +199,18 @@ export const isWrappedTests = (
       await expectOwnerOf(label).on(baseRegistrar).toBe(accounts[0])
       await expect(
         nameWrapper.read.isWrapped([
-          namehash('eth'),
+          namehash('noble'),
           labelhash(label),
         ]) as Promise<boolean>,
       ).resolves.toBe(false)
     })
 
-    it('identifies an unregistered .eth name as unwrapped', async () => {
+    it('identifies an unregistered .noble name as unwrapped', async () => {
       const { nameWrapper } = await loadFixture()
 
       await expect(
         nameWrapper.read.isWrapped([
-          namehash('eth'),
+          namehash('noble'),
           labelhash('abcdefghijklmnop'),
         ]) as Promise<boolean>,
       ).resolves.toBe(false)

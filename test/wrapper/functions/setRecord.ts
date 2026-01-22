@@ -20,7 +20,7 @@ export const setRecordTests = (
 ) => {
   describe('setRecord', () => {
     const label = 'setrecord'
-    const name = `${label}.eth`
+    const name = `${label}.noble`
 
     async function fixture() {
       const initial = await loadNameWrapperFixture()
@@ -219,7 +219,7 @@ export const setRecordTests = (
       )
     })
 
-    it('Setting the owner to 0 on a .eth reverts', async () => {
+    it('Setting the owner to 0 on a .noble reverts', async () => {
       const { nameWrapper, actions, accounts } = await loadNameWrapperFixture()
 
       await actions.registerSetupAndWrapName({

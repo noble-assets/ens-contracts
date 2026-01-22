@@ -46,10 +46,10 @@ contract NameWrapper is
     string public constant name = "NameWrapper";
 
     uint64 private constant GRACE_PERIOD = 90 days;
-    bytes32 private constant ETH_NODE =
-        0x93cdeb708b7545dc668eb9280176169d1c33cfd8ed6f04690a0bcc88a93fc4ae;
-    bytes32 private constant ETH_LABELHASH =
-        0x4f5b812789fc606be1b3b16908db13fc7a9adf7ca72641f84d75b47069d3d7f0;
+    bytes32 private constant NOBLE_NODE =
+        0x6a3a6e0396dfca0f620a22586315930a7419564d1fb15a35096a66a603afe621;
+    bytes32 private constant NOBLE_LABELHASH =
+        0xf10286cfaa11d8c50b20f585131ba34dd4a042eb12b2b4d800a62be6d646a5b0;
     bytes32 private constant ROOT_NODE =
         0x0000000000000000000000000000000000000000000000000000000000000000;
 
@@ -65,10 +65,10 @@ contract NameWrapper is
         registrar = _registrar;
         metadataService = _metadataService;
 
-        /* Burn PARENT_CANNOT_CONTROL and CANNOT_UNWRAP fuses for ROOT_NODE and ETH_NODE and set expiry to max */
+        /* Burn PARENT_CANNOT_CONTROL and CANNOT_UNWRAP fuses for ROOT_NODE and NOBLE_NODE and set expiry to max */
 
         _setData(
-            uint256(ETH_NODE),
+            uint256(NOBLE_NODE),
             address(0),
             uint32(PARENT_CANNOT_CONTROL | CANNOT_UNWRAP),
             MAX_EXPIRY
@@ -80,7 +80,7 @@ contract NameWrapper is
             MAX_EXPIRY
         );
         names[ROOT_NODE] = "\x00";
-        names[ETH_NODE] = "\x03eth\x00";
+        names[NOBLE_NODE] = "\x05noble\x00";
     }
 
     function supportsInterface(
@@ -237,9 +237,9 @@ contract NameWrapper is
             !_isETH2LDInGracePeriod(fuses, expiry);
     }
 
-    /// @notice Wraps a .eth domain, creating a new token and sending the original ERC721 token to this contract
-    /// @dev Can be called by the owner of the name on the .eth registrar or an authorised caller on the registrar
-    /// @param label Label as a string of the .eth domain to wrap
+    /// @notice Wraps a .noble domain, creating a new token and sending the original ERC721 token to this contract
+    /// @dev Can be called by the owner of the name on the .noble registrar or an authorised caller on the registrar
+    /// @param label Label as a string of the .noble domain to wrap
     /// @param wrappedOwner Owner of the name in this contract
     /// @param ownerControlledFuses Initial owner-controlled fuses to set
     /// @param resolver Resolver contract address
@@ -256,7 +256,7 @@ contract NameWrapper is
             !registrar.isApprovedForAll(registrant, msg.sender)
         ) {
             revert Unauthorised(
-                _makeNode(ETH_NODE, bytes32(tokenId)),
+                _makeNode(NOBLE_NODE, bytes32(tokenId)),
                 msg.sender
             );
         }
@@ -313,7 +313,7 @@ contract NameWrapper is
         uint256 tokenId,
         uint256 duration
     ) external onlyController returns (uint256 expires) {
-        bytes32 node = _makeNode(ETH_NODE, bytes32(tokenId));
+        bytes32 node = _makeNode(NOBLE_NODE, bytes32(tokenId));
 
         uint256 registrarExpiry = registrar.renew(tokenId, duration);
 
@@ -355,7 +355,7 @@ contract NameWrapper is
 
         names[node] = name;
 
-        if (parentNode == ETH_NODE) {
+        if (parentNode == NOBLE_NODE) {
             revert IncompatibleParent();
         }
 
@@ -374,20 +374,20 @@ contract NameWrapper is
         _wrap(node, name, wrappedOwner, 0, 0);
     }
 
-    /// @notice Unwraps a .eth domain. e.g. vitalik.eth
+    /// @notice Unwraps a .noble domain. e.g. vitalik.noble
     /// @dev Can be called by the owner in the wrapper or an authorised caller in the wrapper
-    /// @param labelhash Labelhash of the .eth domain
-    /// @param registrant Sets the owner in the .eth registrar to this address
+    /// @param labelhash Labelhash of the .noble domain
+    /// @param registrant Sets the owner in the .noble registrar to this address
     /// @param controller Sets the owner in the registry to this address
     function unwrapETH2LD(
         bytes32 labelhash,
         address registrant,
         address controller
-    ) public onlyTokenOwner(_makeNode(ETH_NODE, labelhash)) {
+    ) public onlyTokenOwner(_makeNode(NOBLE_NODE, labelhash)) {
         if (registrant == address(this)) {
             revert IncorrectTargetOwner(registrant);
         }
-        _unwrap(_makeNode(ETH_NODE, labelhash), controller);
+        _unwrap(_makeNode(NOBLE_NODE, labelhash), controller);
         registrar.safeTransferFrom(
             address(this),
             registrant,
@@ -405,7 +405,7 @@ contract NameWrapper is
         bytes32 labelhash,
         address controller
     ) public onlyTokenOwner(_makeNode(parentNode, labelhash)) {
-        if (parentNode == ETH_NODE) {
+        if (parentNode == NOBLE_NODE) {
             revert IncompatibleParent();
         }
         if (controller == address(0x0) || controller == address(this)) {
@@ -765,7 +765,7 @@ contract NameWrapper is
     ) public view returns (bool) {
         bytes32 node = _makeNode(parentNode, labelhash);
         bool wrapped = _isWrapped(node);
-        if (parentNode != ETH_NODE) {
+        if (parentNode != NOBLE_NODE) {
             return wrapped;
         }
         try registrar.ownerOf(uint256(labelhash)) returns (address owner) {
@@ -1001,9 +1001,9 @@ contract NameWrapper is
         address resolver
     ) private {
         bytes32 labelhash = keccak256(bytes(label));
-        bytes32 node = _makeNode(ETH_NODE, labelhash);
+        bytes32 node = _makeNode(NOBLE_NODE, labelhash);
         // hardcode dns-encoded eth string for gas savings
-        bytes memory name = _addLabel(label, "\x03eth\x00");
+        bytes memory name = _addLabel(label, "\x05noble\x00");
         names[node] = name;
 
         _wrap(

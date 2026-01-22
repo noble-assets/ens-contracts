@@ -25,7 +25,7 @@ export const setSubnodeOwnerTests = (
 ) =>
   describe('setSubnodeOwner()', () => {
     const label = 'ownerandwrap'
-    const name = `${label}.eth`
+    const name = `${label}.noble`
     const sublabel = 'sub'
     const subname = `${sublabel}.${name}`
 
@@ -443,7 +443,7 @@ export const setSubnodeOwnerTests = (
         [
           accounts[0].address,
           nameWrapper.address,
-          namehash('test.eth'),
+          namehash('test.noble'),
           labelhash('sub'),
         ],
       )

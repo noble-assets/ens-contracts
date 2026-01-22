@@ -342,31 +342,31 @@ describe('NameCoder', () => {
     })
   })
 
-  describe('ethName()', () => {
+  describe('nobleName()', () => {
     it('min label', async () => {
       const F = await loadFixture()
-      await expect(F.read.ethName([MIN_LABEL])).resolves.toStrictEqual(
-        dnsEncodeName(`${MIN_LABEL}.eth`),
+      await expect(F.read.nobleName([MIN_LABEL])).resolves.toStrictEqual(
+        dnsEncodeName(`${MIN_LABEL}.noble`),
       )
     })
 
     it('max label', async () => {
       const F = await loadFixture()
-      await expect(F.read.ethName([MAX_LABEL])).resolves.toStrictEqual(
-        dnsEncodeName(`${MAX_LABEL}.eth`),
+      await expect(F.read.nobleName([MAX_LABEL])).resolves.toStrictEqual(
+        dnsEncodeName(`${MAX_LABEL}.noble`),
       )
     })
 
     it('empty label reverts', async () => {
       const F = await loadFixture()
-      await expect(F.read.ethName([''])).toBeRevertedWithCustomError(
+      await expect(F.read.nobleName([''])).toBeRevertedWithCustomError(
         'LabelIsEmpty',
       )
     })
 
     it('long label reverts', async () => {
       const F = await loadFixture()
-      await expect(F.read.ethName([LONG_LABEL]))
+      await expect(F.read.nobleName([LONG_LABEL]))
         .toBeRevertedWithCustomError('LabelIsTooLong')
         .withArgs([LONG_LABEL])
     })

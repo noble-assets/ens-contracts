@@ -21,7 +21,7 @@ import {
 export const setFusesTests = (loadFixture: LoadNameWrapperFixture) => {
   describe('setFuses()', () => {
     const label = 'fuses'
-    const name = `${label}.eth`
+    const name = `${label}.noble`
 
     it.skip('cannot burn PARENT_CANNOT_CONTROL', async () => {
       const { nameWrapper, actions, accounts } = await loadFixture()
@@ -109,7 +109,7 @@ export const setFusesTests = (loadFixture: LoadNameWrapperFixture) => {
       ).toBeRevertedWithoutReason()
     })
 
-    it('cannot burn fuses as the previous owner of a .eth when the name has expired', async () => {
+    it('cannot burn fuses as the previous owner of a .noble when the name has expired', async () => {
       const { nameWrapper, actions, accounts, testClient } = await loadFixture()
 
       await actions.registerSetupAndWrapName({
@@ -176,7 +176,7 @@ export const setFusesTests = (loadFixture: LoadNameWrapperFixture) => {
         .withArgs([namehash(`sub.${name}`)])
     })
 
-    it('Will not allow burning fuses of .eth names unless CANNOT_UNWRAP is also burned.', async () => {
+    it('Will not allow burning fuses of .noble names unless CANNOT_UNWRAP is also burned.', async () => {
       const { nameWrapper, actions } = await loadFixture()
 
       await actions.registerSetupAndWrapName({

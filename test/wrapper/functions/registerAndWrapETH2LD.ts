@@ -26,7 +26,7 @@ export const registerAndWrapETH2LDTests = (
 ) => {
   describe('registerAndWrapETH2LD()', () => {
     const label = 'register'
-    const name = `${label}.eth`
+    const name = `${label}.noble`
 
     async function fixture() {
       const initial = await loadNameWrapperFixture()

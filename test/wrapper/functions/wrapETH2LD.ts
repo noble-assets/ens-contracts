@@ -26,7 +26,7 @@ import {
 export const wrapETH2LDTests = (loadFixture: LoadNameWrapperFixture) =>
   describe('wrapETH2LD()', () => {
     const label = 'wrapped2'
-    const name = `${label}.eth`
+    const name = `${label}.noble`
 
     it('wraps a name if sender is owner', async () => {
       const { ensRegistry, baseRegistrar, nameWrapper, accounts, actions } =
@@ -60,7 +60,7 @@ export const wrapETH2LDTests = (loadFixture: LoadNameWrapperFixture) =>
       await expectOwnerOf(label).on(baseRegistrar).toBe(nameWrapper)
     })
 
-    it('Cannot wrap a name if the owner has not authorised the wrapper with the .eth registrar.', async () => {
+    it('Cannot wrap a name if the owner has not authorised the wrapper with the .noble registrar.', async () => {
       const { nameWrapper, accounts, actions } = await loadFixture()
 
       await actions.register({
@@ -100,7 +100,7 @@ export const wrapETH2LDTests = (loadFixture: LoadNameWrapperFixture) =>
       ).resolves.toEqualAddress(accounts[1].address)
     })
 
-    it('Can re-wrap a name that was wrapped has already expired on the .eth registrar', async () => {
+    it('Can re-wrap a name that was wrapped has already expired on the .noble registrar', async () => {
       const { baseRegistrar, nameWrapper, accounts, testClient, actions } =
         await loadFixture()
 
@@ -499,7 +499,7 @@ export const wrapETH2LDTests = (loadFixture: LoadNameWrapperFixture) =>
       )
     })
 
-    it('Allows an account approved by the owner on the .eth registrar to wrap a name.', async () => {
+    it('Allows an account approved by the owner on the .noble registrar to wrap a name.', async () => {
       const { baseRegistrar, nameWrapper, accounts, actions } =
         await loadFixture()
 
