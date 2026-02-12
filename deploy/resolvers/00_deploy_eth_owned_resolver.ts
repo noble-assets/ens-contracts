@@ -23,12 +23,12 @@ export default deployScript(
     }
 
     const registrar = get<
-      (typeof artifacts.BaseRegistrarImplementation)['abi']
-    >('BaseRegistrarImplementation')
+      (typeof artifacts.RegistrarSecurityController)['abi']
+    >('RegistrarSecurityController')
 
     console.log(`  - Setting resolver for .noble to ${ethOwnedResolver.address}`)
     await write(registrar, {
-      functionName: 'setResolver',
+      functionName: 'setRegistrarResolver',
       args: [ethOwnedResolver.address],
       account: owner,
     })
@@ -36,6 +36,6 @@ export default deployScript(
   {
     id: 'EthOwnedResolver v1.0.0',
     tags: ['category:resolvers', 'OwnedResolver', 'EthOwnedResolver'],
-    dependencies: ['ENSRegistry', 'BaseRegistrarImplementation'],
+    dependencies: ['ENSRegistry', 'RegistrarSecurityController'],
   },
 )
