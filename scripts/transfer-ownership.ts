@@ -125,7 +125,7 @@ async function main() {
       await publicClient.waitForTransactionReceipt({ hash })
       console.log(`${contractName}: Transferred ✓ (${hash})`)
     } catch (error: any) {
-      // Not Ownable - skip
+      console.log(`${contractName}: No owner() function or read failed, skipping`)
     }
   }
 
