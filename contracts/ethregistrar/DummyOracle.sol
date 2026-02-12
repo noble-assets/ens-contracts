@@ -1,13 +1,15 @@
 pragma solidity >=0.8.4;
 
-contract DummyOracle {
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+
+contract DummyOracle is Ownable {
     int256 value;
 
-    constructor(int256 _value) public {
+    constructor(int256 _value) {
         set(_value);
     }
 
-    function set(int256 _value) public {
+    function set(int256 _value) public onlyOwner {
         value = _value;
     }
 
